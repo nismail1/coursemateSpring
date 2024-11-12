@@ -63,7 +63,7 @@ public void setCustomUserDetailsService(CustomUserDetailsService customUserDetai
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/signup/student", "/","/signup/teacher", "/signup/administrator", "/login","/dashboard/**","/dashboard/student/**","/courses/**")
+                .requestMatchers("/signup/student", "/css/**","/","/signup/teacher", "/signup/administrator", "/login","/dashboard/**","/dashboard/student/**","/dashboard/teacher/**","/courses/**")
                 .permitAll() // Allow access to signup and login pages
                 .anyRequest().authenticated() // All other requests need authentication
             )

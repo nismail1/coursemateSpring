@@ -1,6 +1,7 @@
 package com.coursemate.controller;
 
 import com.coursemate.model.Administrator;
+import com.coursemate.model.Course;
 import com.coursemate.model.Grade;
 import com.coursemate.model.Student;
 import com.coursemate.model.Teacher;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -121,9 +125,35 @@ public class DashboardController {
 
         // Add teacher data to the model
         Teacher teacher = teacherOptional.get();
+        List<Course> teacherCourses =teacher.getCourses();
+        
         model.addAttribute("teacherId", teacher.getId());
-        model.addAttribute("teacherCourses", teacher.getCourses());
+        model.addAttribute("teacherCourses", teacherCourses);
         model.addAttribute("title", "Teacher Dashboard");
+
+        // Map to store student grades by course
+        Map<Long, Map<Student, List<Grade>>> courseStudentGrades = new HashMap<>();
+
+        for (Course course : teacherCourses) {
+            System.out.println("Processing course: " + course.getName());
+            if (course.getStudents() == null || course.getStudents().isEmpty()) {
+                continue; // Skip if no students
+            }
+            Map<Student, List<Grade>> studentGrades = new HashMap<>();
+            for (Student student : course.getStudents()) {
+                
+                System.out.println("Processing student: " + student.getFirstName() + " " + student.getLastName());
+                List<Grade> grades = studentService.getGradesByStudent(student.getId());
+                System.out.println("Grades retrieved: " + grades);
+                if (grades == null) {
+                    grades = new ArrayList<>(); // Initialize empty list if no grades found
+                }
+                studentGrades.put(student, grades);
+            }
+            courseStudentGrades.put(course.getId(), studentGrades);
+        }
+        model.addAttribute("courseStudentGrades", courseStudentGrades);
+
 
         return "teacher-dashboard";  // Name of the Thymeleaf template
     }

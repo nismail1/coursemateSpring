@@ -35,7 +35,7 @@ public class CourseController {
         public String getAllCourses(Model model) {
             List<Course> courses = courseService.getAllCourses();
             model.addAttribute("courses", courses);
-
+            
             // Check if the current user is an admin or a student and show appropriate options
             if (isAdmin()) {
                 return "manage-courses";  // Admin's course management page

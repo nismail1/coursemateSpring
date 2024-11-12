@@ -2,22 +2,172 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${title}">Teacher Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add the CSS styles here or link to an external stylesheet */
+        /* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logout-btn {
+    background-color: #fff;
+    color: #4CAF50;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.main-dashboard {
+    margin: 20px;
+}
+
+.course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.course-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.course-card h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.students-grades {
+    margin-top: 20px;
+}
+
+.students-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.student-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.student-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.student-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.current-grade {
+    color: #888;
+}
+
+.grade-input {
+    margin-top: 10px;
+}
+
+.grade-input label {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.grade-input input {
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 0;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .students-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+    </style>
 </head>
 <body>
-    <header>
+    <header class="header">
         <h1>Welcome, Teacher!</h1>
-        <nav>
-            <ul>
-                <li><a th:href="@{/dashboard/overview}">Back to Overview</a></li>
-                <li><a th:href="@{/dashboard/teacher/{id}(id=${teacherId})}">My Courses</a></li>
-            </ul>
-        </nav>
+        <button onclick="window.location.href='/logout'" class="logout-btn">Logout</button>
     </header>
-    <main>
-        <h2>Assigned Courses</h2>
-        <ul>
-            <li th:each="course : ${teacherCourses}" th:text="${course.name}"></li>
-        </ul>
+    
+    <main class="main-dashboard">
+        <section class="course-list">
+            <h2>Assigned Courses</h2>
+            <ul>
+                <li th:each="course : ${teacherCourses}" class="course-card">
+                    <h3 th:text="${course.name}"></h3>
+                    <p th:text="'Description: ' + ${course.description}"></p>
+                    <p th:text="'Teacher: ' + (${course.teacher.firstName} + ' ' + ${course.teacher.lastName})"></p>
+                    
+                    <div class="students-grades">
+                        <h4>Students and Grades</h4>
+                        <form th:action="@{/dashboard/teacher/{id}/assign-grade(id=${teacherId})}" method="post">
+                            <div class="students-container">
+                                <div th:each="studentEntry : ${courseStudentGrades.get(course.id)}" class="student-card">
+                                    <div class="student-info">
+                                        <span class="student-name" th:text="${studentEntry.key.firstName} + ' ' + ${studentEntry.key.lastName}"></span>
+                                        <span class="current-grade" th:text="'Current Grade: ' + ${studentEntry.value[0].grade}"></span>
+                                    </div>
+                                    <div class="grade-input">
+                                        <label for="grade">Assign Grade:</label>
+                                        <input type="text" name="grades[${studentEntry.key.id}]" th:value="${studentEntry.value[0].grade}" placeholder="New Grade" required>
+                                    </div>
+                                    <input type="hidden" name="studentId" th:value="${studentEntry.key.id}">
+                                </div>
+                            </div>
+                            <input type="hidden" name="courseId" th:value="${course.id}">
+                            <button type="submit" class="submit-btn">Submit Grades</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </section>
     </main>
 </body>
 </html>

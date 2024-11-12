@@ -1,0 +1,153 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.heading {
+    font-size: 2rem;
+    color: #3e8e41;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.error-message {
+    color: #ff4d4d;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+/* Form Styles */
+.login-form, .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+label {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.input-field:focus {
+    border-color: #3e8e41;
+    box-shadow: 0 0 8px rgba(62, 142, 65, 0.3);
+}
+
+.submit-button {
+    padding: 12px;
+    font-size: 1.1rem;
+    background-color: #3e8e41;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #36a045;
+    transform: translateY(-2px);
+}
+
+.submit-button:active {
+    background-color: #338e3b;
+    transform: translateY(1px);
+}
+
+.submit-button:focus {
+    outline: none;
+}
+
+/* Link Styles */
+.signup-link {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.signup-link a {
+    color: #3e8e41;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    .heading {
+        font-size: 1.5rem;
+    }
+
+    .submit-button {
+        font-size: 1rem;
+    }
+}
+/* General Styles for Links in Signup Options */
+.signup-options {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.signup-options li {
+    margin-bottom: 10px;
+}
+
+.signup-options a {
+    font-size: 1rem;
+    color: #3e8e41;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.signup-options a:hover {
+    color: #36a045;
+    text-decoration: underline;
+}
