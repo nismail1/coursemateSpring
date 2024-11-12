@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">CourseMate - Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Dashboard Overview</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/dashboard/student/{id}(id=${studentId})}">Student Dashboard</a></li>
+                <li><a th:href="@{/dashboard/teacher/{id}(id=${teacherId})}">Teacher Dashboard</a></li>
+                <li><a th:href="@{/dashboard/admin/{id}(id=${adminId})}">Admin Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <p>This is the general dashboard overview page for the system.</p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Student Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, Student!</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/dashboard/overview}">Back to Overview</a></li>
+                <!-- <li><a th:href="@{/dashboard/student/{id}(id=${studentId})}">My Courses</a></li> -->
+                <!-- <li><a th:href="@{/dashboard/students/{id}(id=${studentId})/grades}">Check your Grades</a></li> -->
+                <!-- <li><a th:href="@{/dashboard/students/{studentId}/grades}">Is the ID the problem?</a></li> -->
+                <li th:if="${studentId != null}">
+                    <a th:href="@{/dashboard/student/{id}(id=${studentId})}">My Courses</a>
+                </li>
+                <li th:if="${studentId != null}">
+                    <a th:href="@{/dashboard/students/{id}(id=${studentId})/grades}">Check your Grades</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Enrolled Courses</h2>
+        <ul>
+            <li th:each="course, iterStat : ${studentCourses}">
+                <div>
+                    <h3 th:text="${course.name}"></h3>
+                    <p th:text="${course.description}"></p>
+                    <p>Grade: 
+                        <span th:each="grade : ${studentGrades}"
+                              th:if="${grade.course.id == course.id}"
+                              th:text="${grade.grade}">N/A</span>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>

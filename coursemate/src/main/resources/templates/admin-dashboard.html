@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Admin Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, Administrator!</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/dashboard/overview}">Back to Overview</a></li>
+                <li><a th:href="@{/admin/manage-teachers}">Manage Teachers</a></li>
+                <li><a th:href="@{/admin/manage-courses}">Manage Courses</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>System Administration</h2>
+        <p>Here you can manage teachers, students, and courses.</p>
+    </main>
+</body>
+</html>

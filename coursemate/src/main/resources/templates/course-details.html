@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Course Details - CourseMate</title>
+</head>
+<body>
+    <header>
+        <h1 th:text="${course.name}"></h1>
+        <p th:text="${course.description}"></p>
+    </header>
+    <main>
+        <h2>Enrolled Students</h2>
+        <ul>
+            <li th:each="student : ${students}">
+                <span th:text="${student.firstName} + ' ' + ${student.lastName}"></span>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>

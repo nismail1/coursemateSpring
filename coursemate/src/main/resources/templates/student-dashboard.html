@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Student Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, Student!</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/dashboard/overview}">Back to Overview</a></li>
+                <li><a th:href="@{/dashboard/student/{id}(id=${studentId})}">My Courses</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Enrolled Courses</h2>
+        <ul>
+            <li th:each="course : ${studentCourses}" th:text="${course.name}"></li>
+        </ul>
+    </main>
+</body>
+</html>

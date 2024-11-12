@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Admin Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, Administrator!</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/dashboard/overview}">Back to Overview</a></li>
+                <!-- <li><a th:href="@{/admin/manage-teachers}">Manage Teachers</a></li> -->
+                <li><a th:href="@{/courses/manage-courses}">Manage Courses</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>System Administration</h2>
+        <p>Here you can manage teachers, students, and courses.</p>
+        <!-- List of Teachers -->
+        <section>
+            <h3>All Teachers</h3>
+            <ul>
+                <li th:each="teacher : ${teachers}" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></li>
+            </ul>
+        </section>
+
+        <!-- List of Students -->
+        <section>
+            <h3>All Students</h3>
+            <ul>
+                <li th:each="student : ${students}" th:text="${student.firstName} + ' ' + ${student.lastName}"></li>
+            </ul>
+        </section>
+
+       <!-- List of Courses -->
+<section>
+    <h3>All Courses</h3>
+    <ul>
+        <li th:each="course : ${courses}">
+            <strong th:text="${course.name}"></strong>: 
+            <span th:text="${course.description}"></span>
+        </li>
+    </ul>
+</section>
+    </main>
+</body>
+</html>
